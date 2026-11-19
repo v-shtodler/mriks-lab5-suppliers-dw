@@ -12,11 +12,11 @@ GROUP BY s.supplier_name
 ORDER BY on_time_pct DESC;
 
 -- Запит 2. У кого найбільше браку
--- Ділимо кількість браку на привезену кількість.
+-- Ділимо кількість браку на привезену кількість. NULLIF захищає від ділення на нуль.
 SELECT s.supplier_name,
        SUM(f.qty_delivered) AS delivered,
        SUM(f.qty_defective) AS defective,
-       ROUND(100.0 * SUM(f.qty_defective) / SUM(f.qty_delivered), 1) AS defect_pct
+       ROUND(100.0 * SUM(f.qty_defective) / NULLIF(SUM(f.qty_delivered), 0), 1) AS defect_pct
 FROM fact_supply f
 JOIN dim_supplier s ON s.supplier_key = f.supplier_key
 GROUP BY s.supplier_name
