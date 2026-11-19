@@ -18,6 +18,7 @@
 | `sql/ddl/01_create_dw.sql` | DDL-скрипт розгортання сховища | Інженер даних |
 | `sql/dml/02_sample_data.sql` | Тестові дані для перевірки запитів | Тестувальник |
 | `sql/queries/analytics.sql` | 5 аналітичних запитів з поясненнями | Аналітик |
+| `sql/tests/03_integrity_checks.sql` | 12 тестів цілісності даних | Тестувальник |
 | `docs/03_team_and_sprint.md` | Ролі, план спринту, робота з трекером | Уся команда |
 | `docs/04_review_checklist.md` | Чек-лист перехресного рецензування | Тестувальник |
 | `docs/05_kpi.md` | Оцінка результативності учасників і команди | Уся команда |
@@ -37,6 +38,7 @@
 createdb suppliers_dw
 psql -d suppliers_dw -f sql/ddl/01_create_dw.sql      # структура
 psql -d suppliers_dw -f sql/dml/02_sample_data.sql    # тестові дані (необов'язково)
+psql -d suppliers_dw -f sql/tests/03_integrity_checks.sql  # тести цілісності, скрізь має бути 0
 psql -d suppliers_dw -f sql/queries/analytics.sql     # запити
 ```
 
@@ -44,4 +46,5 @@ psql -d suppliers_dw -f sql/queries/analytics.sql     # запити
 
 1. Кожна задача — це Issue з виконавцем і дедлайном на дошці проєкту.
 2. Зміни робимо в окремій гілці й відкриваємо Pull Request.
-3. PR перевіряє інший учасник за `docs/04_review_checklist.md`, після схвалення — merge у `main`.
+3. Структуру сховища зберігаємо як код: будь-яка зміна таблиць — це зміна DDL-скрипту в репозиторії («схема як код»).
+4. PR перевіряє інший учасник за `docs/04_review_checklist.md`, після схвалення — merge у `main`.
